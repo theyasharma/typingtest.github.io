@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<head>
+    <title>TypingTest</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    
+    <div class="mainDiv">
+        
+        <div class="navbar">
+            <div class="logo">
+                <a href="./index.html"><img src="./assests/logo1.png" "></a>
+            </div>
+            
+            <a href="./index.html">Home</a>
+            <a href="./coming.html">News</a>
+            <a href="./coming.html">Contact</a>
+            <a href="./about.html">About</a>
+          </div>
+        <div class="centerDiv">
+            <h1 id="headin">Welcome To Typing Test</h1>
+            <h2 id="msg"></h2>
+            <br>
+            <textarea name="" id="mywords" cols="100" rows="5" placeholder="You Know you can type all DAY!!"></textarea>
+            <br>
+            <button class="glow-on-hover" id="btn" class="mainbtn">Start</button>
+            
+        </div>
+    </div>
+    <div class="footer-dark">
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>Services</h3>
+                        <ul>
+                            <li><a href="./coming.html">Web design</a></li>
+                            <li><a href="./coming.html">Development</a></li>
+                            <li><a href="./coming.html">Hosting</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>About</h3>
+                        <ul>
+                            <li><a href="./coming.html">Company</a></li>
+                            <li><a href="./coming.html">Team</a></li>
+                            <li><a href="./coming.html">Careers</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 item text">
+                        <h3>Company Name</h3><br>
+                        <h3>RKGIT</h3>
+                        <p>Raj Kumar Goel Institute of Technology was established in 2000 by late Sri Raj Kumar Goel. The institute is recognized by both governing bodies, All India Council for Technical Education (AICTE) and Council of India (PCI) and it is affiliated to Dr. A.P.J. Abdul Kalam Technical University.</p>
+                    </div>
+                    <div class="col item social"><a href="https://www.facebook.com/pandit.b.yashsharma/"><i class="icon ion-social-facebook"></i></a><a href="./coming.html"><i class="icon ion-social-twitter"></i></a><a href="./coming.html"><i class="icon ion-social-snapchat"></i></a><a href="https://www.instagram.com/theyasharma/"><i class="icon ion-social-instagram"></i></a></div>
+                </div>
+                <p class="copyright">MADE BY YASHU WITH &#9829;</p>
+            </div>
+        </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+
+
+
+
+<script>
+    const setOfWords=[
+        "There's nothing wrong with having a different opinion.",
+        "He's a different person, entirely.",
+        "I enjoy traveling, especially to very different places.",
+        "Some people changed together and others went in different directions.",
+        "What's different about our test?",
+        "By the time they reached the barn, she had a different perspective of the entire situation.",
+        "Yes, everything is different nowadays, everything is changed.",
+        "Bennigsen should have advanced into Prussia sooner, then things would have taken a different turn...",
+    ];
+    const msg=document.getElementById('msg');
+    const typewords=document.getElementById('mywords');
+    const btn=document.getElementById('btn');
+    let startTime,endTime;
+
+    const playGame=()=>{
+        let randomNumber=Math.floor(Math.random()*setOfWords.length);
+        msg.innerText=setOfWords[randomNumber];
+        let date=new Date();
+        startTime=date.getTime();
+        btn.innerText="Finish";
+
+    }
+    const endPlay=()=>{
+        let date=new Date();
+        endTime=date.getTime();
+        let totalTime=((endTime-startTime)/1000);
+        console.log(totalTime);
+
+        let totalStr=typewords.value;
+        let wordsCount=wordCounter(totalStr);
+
+        let speed =Math.round((wordsCount/totalTime)*60);
+        let finalMsg="You typed at  "+speed+"words per min";
+        finalMsg+=compatreWords(msg.innerText,totalStr);
+        msg.innerText=finalMsg;
+    }
+
+
+    const compatreWords=(str1,str2)=>{
+        let word1=str1.split(" ");
+        let word2=str2.split(" ");
+        let cnt=0;
+
+        word1.forEach(function(item,index) {
+            if(item==word2[index]){
+                cnt++;
+            }
+            
+        })
+        let errorWords=(word1.length-cnt);
+        return (cnt+"correct out of"+word1.length+"words and the total number of error are"+errorWords+" .");
+
+    }
+
+    const wordCounter=(str)=>{
+        let response=str.split(" ").length;
+        return response;
+    }
+    btn.addEventListener('click',function(){
+        console.log(this);
+        if(this.innerText=='Start'){
+            typewords.disabled=false;
+            playGame();
+        }else if(this.innerText=='Finish'){
+            btn.innerText="Start";
+            endPlay();
+        }
+
+    })
+
+</script>
+</body>
+</html>
